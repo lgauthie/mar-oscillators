@@ -1,8 +1,8 @@
-Synthesizing trumpet tones with Marsyas using FM synthesis
+Virtual Analog Oscillators in Marsyas
 ==========================================================
 
-We are going to emulate a trumpet tone according to the two operator method
-described by Dexter Morrill in the first edition of the computer music journal.
+This repository contains examples of several Virtualy Analog Oscillators that I
+have written for Marsyas.
 
 Contents
 --------
@@ -25,6 +25,9 @@ spectrograms of our output.
 
 A tutorial on installing Marsyas and swig python bindings can be found
 [here](http://marsology.blogspot.ca/2011/09/installing-marsyas-with-python-bindings.html).
+
+To use these examples you will need to most recent version of Marsyas found in
+the sourceforge svn repository.
 
 I'm also assuming you have some experience with python.
 
