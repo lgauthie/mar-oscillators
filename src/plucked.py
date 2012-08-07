@@ -4,17 +4,14 @@ from play_melody import *
 
 
 def main():
-    gen = ["Series/fmnet", ["Plucked/plucked","ADSR/adsr","Gain/gain","SoundFileSink/dest2"]]
+    gen = ["Series/fmnet", ["Plucked/plucked","Gain/gain","SoundFileSink/dest2"]]
 
 # Create network and intialize parameter mapping 
     network = create(gen)
 
-    network.updControl("ADSR/adsr/mrs_real/aTime", 0.1)
     network.updControl("Gain/gain/mrs_real/gain", 0.8)
 
 # These mapping are to make the system work with play melody
-    network.linkControl("ADSR/adsr/mrs_bool/noteon", "mrs_bool/noteon")
-    network.linkControl("ADSR/adsr/mrs_bool/noteoff", "mrs_bool/noteoff")
     network.linkControl("Plucked/plucked/mrs_bool/noteon", "mrs_bool/noteon")
     network.linkControl("Plucked/plucked/mrs_real/frequency", "mrs_real/frequency")
 
