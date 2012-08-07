@@ -41,7 +41,7 @@ Bandlimited Impulse Train Oscillator
 [BlitOsc.cpp](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/BlitOsc.cpp?revision=4803&view=markup)
 [BlitOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/BlitOsc.h?revision=4803&view=markup)
 
-<iframe width="100%" height="166" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F55462394&show_artwork=true"></iframe>
+<object height="81" width="100%"> <param name="movie" value="https://player.soundcloud.com/player.swf?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F55462394"></param> <param name="allowscriptaccess" value="always"></param> <embed allowscriptaccess="always" height="81" src="https://player.soundcloud.com/player.swf?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F55462394" type="application/x-shockwave-flash" width="100%"></embed> </object>  <span><a href="http://soundcloud.com/lee-daniel-gauthier/blittestsaw">BlitTestSaw</a> by <a href="http://soundcloud.com/lee-daniel-gauthier">Leesifer</a></span> 
 
 Allpass Delay Oscillator
 ------------------------
