@@ -1,54 +1,64 @@
 from marsyas import *
 from marsyas_util import create
+from play_melody import *
 
-mod = ["Fanout/fo", ["ADSR/pitch","ADSR/pwm"]]
-osc = ["Series/osc",[mod, "AliasingOsc/osc"]]
-gen = ["Series/fmnet",[osc, "ADSR/amp", "Gain/gain", "SoundFileSink/dest2"]]
-#gen = ["Series/fmnet", [["Fanout/fo", ["ADSR/adsr",osc]], "Product/mul","Gain/gain", "SoundFileSink/dest2"]]
+
+def main():
+    mod = ["Fanout/fo", ["ADSR/pitch",
+                         "ADSR/pwm"]]
+    osc = ["Series/osc",[mod, "AliasingOsc/osc"]]
+    gen = ["Series/fmnet",[osc, "ADSR/adsr", "Gain/gain", "SoundFileSink/dest2"]]
 
 # Create network and intialize parameter mapping 
-network = create(gen)
+    network = create(gen)
+# Set the systems sample rate
+    sample_rate = 44100.0
+    network.updControl( "mrs_real/israte", sample_rate)
 
-network.updControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_bool/bypass", MarControlPtr.from_bool(True))
-network.updControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_real/aTime", 0.7)
-network.updControl("Series/osc/Fanout/fo/ADSR/pitch/mrs_bool/bypass", MarControlPtr.from_bool(True))
-network.updControl("Series/osc/AliasingOsc/osc/mrs_natural/type", 1)
-network.updControl("Series/osc/AliasingOsc/osc/mrs_bool/cyclicin", MarControlPtr.from_bool(True))
-network.updControl("Gain/gain/mrs_real/gain", 0.7)
+    network.updControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_real/aTime", 0.7)
+    network.updControl("Gain/gain/mrs_real/gain", 0.7)
 
-sample_rate = 44100.0
-buffer_size = 64
-device = 1
+    network.updControl("ADSR/adsr/mrs_real/aTime", 0.1)
+    network.updControl("Gain/gain/mrs_real/gain", 0.8)
 
-"""
-Sets up the audio output for the network
-"""
-network.updControl( "mrs_real/israte", sample_rate)
+# These mapping are to make the system work with play melody
+    network.linkControl("ADSR/adsr/mrs_bool/noteon", "mrs_bool/noteon")
+    network.linkControl("ADSR/adsr/mrs_bool/noteoff", "mrs_bool/noteoff")
 
-# Set up Audio File
-network.updControl( "SoundFileSink/dest2/mrs_string/filename", "AliasingTest.wav")
+    network.linkControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_bool/noteon", "mrs_bool/noteon")
+    network.linkControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_bool/noteoff", "mrs_bool/noteoff")
 
-bufferSize = network.getControl("mrs_natural/inSamples").to_natural()
-srate = network.getControl("mrs_real/osrate").to_real()
-tstep = bufferSize * 1.0 / srate
+    network.linkControl("Series/osc/Fanout/fo/ADSR/pitch/mrs_bool/noteon", "mrs_bool/noteon")
+    network.linkControl("Series/osc/Fanout/fo/ADSR/pitch/mrs_bool/noteoff", "mrs_bool/noteoff")
 
-pitch = 55.0
-notes = [pitch, pitch * 2, (pitch * 3)/2.0, (pitch * 5)/3.0, pitch]
+    network.linkControl("Series/osc/AliasingOsc/osc/mrs_real/frequency", "mrs_real/frequency")
 
-for note in notes:
-    time = 0.0
-    nton = 'on'
-    network.updControl("Series/osc/AliasingOsc/osc/mrs_real/frequency", note)
-    network.updControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_real/nton", 1.0)
-    network.updControl("Series/osc/Fanout/fo/ADSR/pitch/mrs_real/nton", 1.0)
-    network.updControl("ADSR/amp/mrs_real/nton", 1.0)
+# PWM Example
+    network.updControl("Series/osc/AliasingOsc/osc/mrs_natural/type", 1)
+    network.updControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_bool/bypass", MarControlPtr.from_bool(True))
+    network.updControl("Series/osc/AliasingOsc/osc/mrs_bool/cyclicin", MarControlPtr.from_bool(True))
+    network.updControl("SoundFileSink/dest2/mrs_string/filename", "AliasingTestPWM.wav")
+    play_melody(network)
 
-    while time < 1.0:
-        network.tick()
+# Saw Wave example
+    network.updControl("Series/osc/AliasingOsc/osc/mrs_natural/type", 0)
+    network.updControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_bool/bypass", MarControlPtr.from_bool(False))
+    network.updControl("Series/osc/AliasingOsc/osc/mrs_bool/cyclicin", MarControlPtr.from_bool(False))
+    network.updControl("SoundFileSink/dest2/mrs_string/filename", "AliasingTestSaw.wav")
+    play_melody(network)
 
-        if time > 0.7 and nton == 'on':
-            network.updControl("Series/osc/Fanout/fo/ADSR/pwm/mrs_real/ntoff", 1.0)
-            network.updControl("Series/osc/Fanout/fo/ADSR/pitch/mrs_real/ntoff", 1.0)
-            network.updControl("ADSR/amp/mrs_real/ntoff", 1.0)
-            nton = 'off'
-        time = time + tstep
+# Pitch modulation example
+    network.updControl("Series/osc/Fanout/fo/ADSR/pitch/mrs_bool/bypass", MarControlPtr.from_bool(True))
+    network.updControl("SoundFileSink/dest2/mrs_string/filename", "AliasingTestPitch.wav")
+    play_melody(network)
+    network.updControl("Series/osc/Fanout/fo/ADSR/pitch/mrs_bool/bypass", MarControlPtr.from_bool(False))
+
+# Square Wave example
+    network.updControl("Series/osc/AliasingOsc/osc/mrs_natural/type", 1)
+    network.updControl("SoundFileSink/dest2/mrs_string/filename", "AliasingTestSquare.wav")
+    play_melody(network)
+
+
+
+if __name__ == "__main__":
+    main()
