@@ -8,6 +8,11 @@ Contents
 --------
 
 * [Prerequisites](README.md#prerequisites)
+* [Bandlimited Impulse Train Oscillator](README.md#bandlimited-impulse-train-oscillator)
+* [Allpass Delay Oscillator](README.md#allpass-delay-oscillator)
+* [Aliasing Oscillator](README.md#aliasing-oscillator)
+* [Additive Oscillator](README.md#additive-oscillator)
+* [Waveguide Oscillator](README.md#waveguide-oscillator)
 
 Prerequisites
 -------------
@@ -30,4 +35,29 @@ To use these examples you will need to most recent version of Marsyas found in
 the sourceforge svn repository.
 
 I'm also assuming you have some experience with python.
+
+Bandlimited Impulse Train Oscillator
+------------------------------------
+[BlitOsc.cpp](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/BlitOsc.cpp?revision=4803&view=markup)
+[BlitOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/BlitOsc.h?revision=4803&view=markup)
+
+Allpass Delay Oscillator
+------------------------
+[APDelayOsc.cpp](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/APDelayOsc.cpp?revision=4803&view=markup)
+[APDelayOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/APDelayOsc.h?revision=4803&view=markup)
+
+Aliasing Oscillator
+-------------------
+[AliasingOsc.cpp](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/AliasingOsc.cpp?revision=4803&view=markup)
+[AliasingOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/AliasingOsc.h?revision=4803&view=markup)
+
+Additive Oscillator
+-------------------
+[AdditiveOsc.cpp](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/AdditiveOsc.cpp?revision=4803&view=markup)
+[AdditiveOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/AdditiveOsc.h?revision=4803&view=markup)
+
+Waveguide Oscillator
+--------------------
+[WaveguideOsc.cpp](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/WaveguideOsc.cpp?revision=4803&view=markup)
+[WaveguideOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/WaveguideOsc.h?revision=4803&view=markup)
 
