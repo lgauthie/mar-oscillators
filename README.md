@@ -54,7 +54,7 @@ I chose to go with a default on for the demos.
 
 ### Source:
 
-[play_melody.py](src/play_melody.py)
+[play_melody.py]( mar-oscillators/src/play_melody.py)
 
 Mono-Synth
 ----------
@@ -70,7 +70,7 @@ Currently only pitch and amplitude are implemented.
 
 ### Source:
 
-[midi.py](src/midi.py)
+[midi.py]( mar-oscillators/src/midi.py)
 
 Bandlimited Impulse Train Oscillator
 ------------------------------------
@@ -117,7 +117,7 @@ work in most cases.
 |
 [BlitOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/BlitOsc.h?revision=4803&view=markup)
 |
-[blit_osc.py](src/blit_osc.py)
+[blit_osc.py]( mar-oscillators/src/blit_osc.py)
 
 Allpass Delay Oscillator
 ------------------------ 
@@ -175,7 +175,7 @@ the extra effort to set up and tweak into a fully usable state.
 |
 [APDelayOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/APDelayOsc.h?revision=4803&view=markup) 
 |
-[allpass_delay_osc.py](src/allpass_delay_osc.py)
+[allpass_delay_osc.py]( mar-oscillators/src/allpass_delay_osc.py)
 
 Aliasing Oscillator
 -------------------
@@ -220,7 +220,7 @@ what is happeneing when a simple envelope is used.
 |
 [AliasingOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/AliasingOsc.h?revision=4803&view=markup)
 |
-[aliasing_osc.py](src/aliasing_osc.py)
+[aliasing_osc.py]( mar-oscillators/src/aliasing_osc.py)
 
 
 Waveguide Oscillator
@@ -253,7 +253,7 @@ should be possible using any number of these oscillators.
 |
 [WaveguideOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/WaveguideOsc.h?revision=4803&view=markup)
 |
-[waveguide_osc.py](src/waveguide_osc.py)
+[waveguide_osc.py]( mar-oscillators/src/waveguide_osc.py)
 
 Additive Oscillator
 -------------------
@@ -286,5 +286,5 @@ right, but I don't think that would make much of a difference.
 |
 [AdditiveOsc.h](http://marsyas.svn.sourceforge.net/viewvc/marsyas/trunk/src/marsyas/AdditiveOsc.h?revision=4803&view=markup)
 |
-[additive_osc.py](src/additive_osc.py)
+[additive_osc.py]( mar-oscillators/src/additive_osc.py)
 
