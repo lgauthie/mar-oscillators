@@ -50,7 +50,7 @@ Playing
 
 For the sake of testing each of these oscillators I've prepared a file to play
 the same melody on each MarSystem passed in. You could specify the melody, but
-I chose to go with a default on for the demos.
+I chose to go with a default one for the demos.
 
 ### Source:
 
@@ -59,7 +59,7 @@ I chose to go with a default on for the demos.
 Mono-Synth
 ----------
 
-This is a quick example of a mono-synth built around Marsyas, right now it is
+This is a quick example of a real-time synth built around Marsyas, right now it is
 only monophonic, but it is possible to extend this to a poly-synth.  
 
 For simplicity I used the PyGame midi library instead of the one built into
