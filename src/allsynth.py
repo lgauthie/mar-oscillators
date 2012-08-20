@@ -4,7 +4,6 @@ from collections import deque
 
 from pygame.midi import *
 
-
 def main():
     init()
     poll = Input.poll
@@ -28,8 +27,10 @@ def main():
 
 class Synth:
     def __init__(self, voices=8):
+        sample_rate = 44100.0
+
         self.playing = deque()
-        self.off = deque([Osc() for _ in range(voices)])
+        self.off = deque([Osc(sample_rate=sample_rate) for _ in range(voices)])
 
         osc_bank = ["Fanout/bank", [osc.get_network() for osc in self.off]]
         net = ["Series/fmnet", [osc_bank,"Sum/sum", "AudioSink/dest"]]
@@ -38,7 +39,6 @@ class Synth:
         self.network = create(net)
 
         # Output settings
-        sample_rate = 88200.0
         self.network.updControl("mrs_real/israte", sample_rate)
         self.network.updControl("AudioSink/dest/mrs_bool/initAudio", MarControlPtr.from_bool(True))
 
@@ -64,16 +64,18 @@ class Synth:
 class Osc:
     _num_of_oscs = 0
 
-    def __init__(self, osc_type="BlitOsc/bl"):
+    def __init__(self, osc_type="BlitOsc/bl", sample_rate = 44100.0):
         self.osc_type = osc_type
         self.spec = lambda i: ["Series/osc%d" % i, [self.osc_type,"ADSR/adsr","Gain/gain"]]
 
         self.osc = self._new_osc()
+        self.osc.updControl("mrs_real/israte", sample_rate)
 
         self.noteon_ctrl = self.osc.getControl("ADSR/adsr/mrs_bool/noteon")
         self.noteoff_ctrl = self.osc.getControl("ADSR/adsr/mrs_bool/noteoff")
         self.freq_ctrl = self.osc.getControl(osc_type + "/mrs_real/frequency")
         self.osc.updControl(osc_type + "/mrs_bool/noteon", MarControlPtr.from_bool(True))
+        self.osc.updControl(osc_type + "/mrs_natural/type", 1)
 
         self.note = None
         self.num = None
