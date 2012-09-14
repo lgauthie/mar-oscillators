@@ -16,6 +16,10 @@ def main():
     gen = ["Series/fmnet", ["APDelayOsc/waveguide","ADSR/adsr","Gain/gain","AudioSink/dest"]]
     network = create(gen)
 
+# Set the systems sample rate
+    sample_rate = 44100.0
+    network.updControl( "mrs_real/israte", sample_rate)
+
     network.updControl("ADSR/adsr/mrs_real/aTime", 0.1)
     network.updControl("Gain/gain/mrs_real/gain", 0.6)
     network.updControl("APDelayOsc/waveguide/mrs_natural/type", 1)
@@ -28,29 +32,25 @@ def main():
     network.linkControl("APDelayOsc/waveguide/mrs_real/frequency", "mrs_real/frequency")
     network.updControl("AudioSink/dest/mrs_bool/initAudio", MarControlPtr.from_bool(True))
 
-# Set the systems sample rate
-    sample_rate = 44100.0
-    network.updControl( "mrs_real/israte", sample_rate)
 
-    noteon = False
+    lastnote = 0
     while(True):
         if poll(midi):
             # format [[[128,  49 , 127,   0], 19633]]
             #           cc#| note| vel| n/a
             msg = read(midi, 1)
-            print msg
             note = msg[0][0][1]
             velocity = msg[0][0][2]
-            print midi2freq(note)
-            if not noteon:
-                network.updControl("mrs_real/frequency", 2*midi2freq(note))
+            noteon = msg[0][0][0]
+            print(msg)
+            if noteon == 145 or noteon == 144:
+                network.updControl("mrs_real/frequency", midi2freq(note))
                 network.updControl("Gain/gain/mrs_real/gain", velo2float(velocity))
                 network.updControl("mrs_bool/noteon", MarControlPtr.from_bool(True))
-                noteon = True
-            else:
+                lastnote = note
+            elif noteon == 128 or noteon == 129 and lastnote == note:
                 network.updControl("mrs_bool/noteoff", MarControlPtr.from_bool(True))
                 network.updControl("mrs_bool/noteon", MarControlPtr.from_bool(False))
-                noteon = False
         network.tick()
 
 def velo2float(num):

@@ -2,6 +2,7 @@ from marsyas import *
 
 def play_melody(network, notes = None):
     if not notes:
+        print "Using Default Melody"
         pitch = 440.0
         notes = [pitch, pitch * 2, (pitch * 3)/2.0, (pitch * 5)/3.0, pitch]
 

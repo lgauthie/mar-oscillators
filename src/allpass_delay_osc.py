@@ -25,12 +25,12 @@ def main():
 # Set up Audio File
     network.updControl("APDelayOsc/apdelay/mrs_natural/type", 0)
     network.updControl("SoundFileSink/dest2/mrs_string/filename", "APTestSaw.wav")
-    play_melody(network)
 
-    network.updControl("APDelayOsc/apdelay/mrs_natural/type", 1)
-    network.updControl("SoundFileSink/dest2/mrs_string/filename", "APTestSquare.wav")
-    play_melody(network)
+    notes = [midi2freq(i) for i in range(30,100)]
+    play_melody(network, notes=notes)
 
+def midi2freq(num):
+    return 440.0 * pow(2.0,((num-69)/12.0))
 
 if __name__ == "__main__":
     main()

@@ -64,7 +64,7 @@ class Synth:
 class Osc:
     _num_of_oscs = 0
 
-    def __init__(self, osc_type="BlitOsc/bl", sample_rate = 44100.0):
+    def __init__(self, osc_type="APDelayOsc/bl", sample_rate = 44100.0):
         self.osc_type = osc_type
         self.spec = lambda i: ["Series/osc%d" % i, [self.osc_type,"ADSR/adsr","Gain/gain"]]
 
@@ -75,7 +75,7 @@ class Osc:
         self.noteoff_ctrl = self.osc.getControl("ADSR/adsr/mrs_bool/noteoff")
         self.freq_ctrl = self.osc.getControl(osc_type + "/mrs_real/frequency")
         self.osc.updControl(osc_type + "/mrs_bool/noteon", MarControlPtr.from_bool(True))
-        self.osc.updControl(osc_type + "/mrs_natural/type", 1)
+        self.osc.updControl(osc_type + "/mrs_natural/type", 0)
 
         self.note = None
         self.num = None
@@ -101,7 +101,7 @@ class Osc:
         return self.osc
 
 def midi2freq(num):
-    return 440.0 * pow(2.0,((num-69)/12.0))
+    return 3 * 440.0 * pow(2.0,((num-69)/12.0))
 
 if __name__ == "__main__":
     main()
